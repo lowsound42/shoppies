@@ -1,0 +1,19 @@
+.nominationsBox {
+    border: 1px solid black;
+    width: 40%;
+    padding: 2rem 2rem;
+    background-color: #ffffff;
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        &-item {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+}

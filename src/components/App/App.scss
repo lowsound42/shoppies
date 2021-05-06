@@ -1,0 +1,30 @@
+body {
+    height: 100vh;
+    background-color: lightgrey;
+    box-sizing: border-box;
+    margin: 2rem 2rem;
+}
+
+.appContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.titleContainer {
+    align-self: flex-start;
+    &__title {
+        text-align: start;
+    }
+}
+
+.dynamicContainer {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-around;
+}
