@@ -1,11 +1,34 @@
 @import "../../sassUtils/mixins.scss";
 
 .bannerContainer {
+  animation: fade-in 0.5s ease-in-out;
   width: 100%;
   position: fixed;
   bottom: 0;
-  height: 4rem;
+  height: 6rem;
   text-align: center;
+  padding: 1rem 1rem;
   background-color: cyan;
   z-index: 99;
+  span {
+    font-weight: bold;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 25%;
+  }
+  50% {
+    opacity: 50%;
+  }
+  75% {
+    opacity: 75%;
+  }
+  100% {
+    opacity: 100%;
+  }
 }

@@ -5,13 +5,11 @@ function SearchBox(props) {
   return (
     <>
       <div className="searchBox">
-        <h3 className="searchBox__title">Movie Title</h3>
-        <form>
-          <input
-            type="text"
-            onChange={(e) => props.setFormInput(e.target.value)}
-          />
-        </form>
+        <input
+          type="text"
+          placeholder="Search for a movie here"
+          onChange={(e) => props.setFormInput(e.target.value)}
+        />
       </div>
     </>
   );

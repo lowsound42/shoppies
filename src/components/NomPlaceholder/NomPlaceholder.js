@@ -4,7 +4,7 @@ import "./NomPlaceholder.scss";
 function NomPlaceholder(props) {
   return (
     <div className="placeholderContainer">
-      <p>Go ahead, make my day...</p>
+      <p className="placeholderContainer__text">Your choices live here</p>
     </div>
   );
 }

@@ -126,9 +126,10 @@ function ResultsBox(props) {
       </ul>
       {props.searchResult.responseStatus === "True" ? (
         <p className="resultsBox__pageCount">
-          {props.searchResult.pages}{" "}
-          {props.searchResult.pages > 1 ? "results!" : "result!"} <br></br> page
-          &nbsp;
+          {props.searchResult.pages}
+          {props.searchResult.pages > 1
+            ? " results!"
+            : " result!"} <br></br> page &nbsp;
           {props.searchResult.currentPage} of &nbsp;
           {pagination ? parseInt(props.searchResult.pages / 10) + 1 : 1}
         </p>

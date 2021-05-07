@@ -44,10 +44,8 @@ function App() {
   return (
     <div className="appContainer">
       {nominations.length === 5 ? <Banner nominations={nominations} /> : null}
-      <section className="titleContainer">
-        <h1 className="titleContainer__title">The Shoppies</h1>
-      </section>
       <div className="topContainer">
+        <h1 className="topContainer__title">The Shoppies</h1>
         <SearchBox
           setFormInput={setFormInput}
           setShowResults={setShowResults}
@@ -72,6 +70,7 @@ function App() {
           <NomPlaceholder />
         )}
       </div>
+      {nominations.length === 5 ? <div className="footerSpacer"></div> : null}
     </div>
   );
 }

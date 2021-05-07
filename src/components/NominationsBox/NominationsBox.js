@@ -10,6 +10,7 @@ function NominationsBox(props) {
 
   return (
     <div className="nominationsBox">
+      <p className="nominationsBox__title">Your Nominees</p>
       <ul className="nominationsBox__list">
         {props.nominations[0] !== undefined ? (
           props.nominations.map((item, index) => {

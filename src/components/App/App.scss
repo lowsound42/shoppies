@@ -3,9 +3,8 @@
 
 body {
   height: 100vh;
-  background-color: #ffffff;
+  background-color: #2f3136;
   box-sizing: border-box;
-  // padding: 2rem 2rem;
 
   @include mobile {
     margin: 0rem 0rem;
@@ -16,28 +15,25 @@ body {
 }
 
 .appContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
   margin: 0 auto;
   font-family: $didact;
-}
-
-.titleContainer {
-  align-self: flex-start;
-  &__title {
-    margin-left: 1rem;
-    text-align: start;
-  }
+  min-height: 100%;
 }
 
 .topContainer {
   display: flex;
   flex-direction: row;
   margin: 0 auto;
-  width: 100%;
+  width: 95%;
+  align-items: center;
+  justify-content: space-between;
+  &__title {
+    color: #ffffff;
+    margin-left: 1rem;
+    @include mobile {
+      font-size: 1.5rem;
+    }
+  }
 }
 
 .bottomContainer {
@@ -46,4 +42,10 @@ body {
   flex-direction: row;
   width: 100%;
   justify-content: space-around;
+}
+
+.footerSpacer {
+  margin-top: 5rem;
+  height: 2rem;
+  width: 2rem;
 }

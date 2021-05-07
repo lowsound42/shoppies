@@ -7,13 +7,19 @@
   background-color: #ffffff;
   margin: 0 auto;
   border-radius: 5px;
-  height: auto;
+  height: 30rem;
   @include mobile {
     padding: 1rem 1rem;
   }
 
   @include tablet {
     padding: 1rem 1rem;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: normal;
   }
 
   &__list {

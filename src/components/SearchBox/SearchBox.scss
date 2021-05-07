@@ -1,21 +1,22 @@
 @import "../../sassUtils/mixins.scss";
 
 .searchBox {
-  border: 1px solid black;
-  width: 80%;
-  margin: 0 auto;
-  padding: 2rem 2rem;
+  width: 40%;
   background-color: #ffffff;
   border-radius: 5px;
   text-align: center;
+  margin-right: 1rem;
 }
 
 input {
-  width: 70%;
+  width: 80%;
+  margin-left: auto;
   height: 2rem;
   padding-left: 2.5rem;
   background-image: url("../../assets/search-solid.svg");
   background-repeat: no-repeat;
   background-position: 0.5rem;
   background-size: 20px 20px;
+  border: 0;
+  outline: 0;
 }

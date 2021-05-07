@@ -1,13 +1,11 @@
 @import "../../sassUtils/mixins.scss";
 
 .placeholderContainer {
-  border: 1px solid black;
   width: 40%;
-  padding: 2rem 2rem;
   background-color: #ffffff;
   margin: 0 auto;
   border-radius: 5px;
-  height: 10rem;
+  height: 14.6rem;
 
   @include mobile {
     padding: 1rem 1rem;
@@ -17,9 +15,12 @@
     padding: 1rem 1rem;
   }
 
-  &__button {
-    width: rem;
-    height: 4rem;
-    background-color: red;
+  &__text {
+    text-align: center;
+    font-size: 2rem;
+
+    @include mobile {
+      font-size: 1.5rem;
+    }
   }
 }
