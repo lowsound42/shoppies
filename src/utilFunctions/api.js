@@ -3,7 +3,7 @@ const apiKey = "9d23d1b7";
 
 const initialCall = (formInput) => {
   return axios
-    .get(`http://www.omdbapi.com/?s=${formInput}&type=movie&apikey=${apiKey}`)
+    .get(`https://www.omdbapi.com/?s=${formInput}&type=movie&apikey=${apiKey}`)
     .then(function (response) {
       return response.data;
     })
@@ -15,7 +15,7 @@ const initialCall = (formInput) => {
 const pageCall = (formInput, page) => {
   return axios
     .get(
-      `http://www.omdbapi.com/?s=${formInput}&type=movie&page=${page}&apikey=${apiKey}`
+      `https://www.omdbapi.com/?s=${formInput}&type=movie&page=${page}&apikey=${apiKey}`
     )
     .then(function (response) {
       return response.data;

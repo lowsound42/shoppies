@@ -3,7 +3,6 @@ import "./ResultsBox.scss";
 import NoResults from "../NoResults/NoResults";
 import utilFunctions from "../../utilFunctions/api";
 import placeholder from "../../assets/placeholder.jpg";
-
 function ResultsBox(props) {
   const [pagination, setPagination] = useState(0);
   const [selected, setSelected] = useState(0);

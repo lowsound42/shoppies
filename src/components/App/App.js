@@ -6,10 +6,12 @@ import NominationsBox from "../NominationsBox/NominationsBox";
 import Banner from "../Banner/Banner";
 import NomPlaceholder from "../NomPlaceholder/NomPlaceholder";
 import utilFunctions from "../../utilFunctions/api";
-
+import { useDebounce } from "use-debounce";
 function App() {
   const [showResults, setShowResults] = useState(0);
   const [formInput, setFormInput] = useState(null);
+  const [debouncedInput] = useDebounce(formInput, 1200);
+
   const [searchResult, setSearchResult] = useState({
     query: null,
     responseStatus: null,
@@ -26,20 +28,22 @@ function App() {
   useEffect(() => {
     const handleSubmit = (e) => {
       setShowResults(1);
-      if (formInput !== null) {
-        utilFunctions.initialCall(formInput.trim()).then(function (response) {
-          setSearchResult({
-            query: formInput,
-            responseStatus: response.Response,
-            result: response.Search,
-            pages: response.totalResults,
-            currentPage: 1,
+      if (debouncedInput !== null) {
+        utilFunctions
+          .initialCall(debouncedInput.trim())
+          .then(function (response) {
+            setSearchResult({
+              query: formInput,
+              responseStatus: response.Response,
+              result: response.Search,
+              pages: response.totalResults,
+              currentPage: 1,
+            });
           });
-        });
       }
     };
     handleSubmit();
-  }, [formInput]);
+  }, [debouncedInput, formInput]);
 
   return (
     <div className="appContainer">
