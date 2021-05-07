@@ -1,6 +1,7 @@
 @import "../../sassUtils/mixins.scss";
 
 .resultsBox {
+  position: relative;
   background-color: #ffffff;
   width: 40%;
   padding: 1rem 1rem;
@@ -14,6 +15,9 @@
   }
   @include tablet {
     width: 40%;
+  }
+  @include smallMobile {
+    width: 37%;
   }
 
   &__pageCount {
@@ -85,6 +89,10 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
+        &:hover {
+          cursor: pointer;
+        }
 
         &-box {
           display: flex;

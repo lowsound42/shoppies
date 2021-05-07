@@ -1,0 +1,83 @@
+@import "../../sassUtils/mixins.scss";
+
+.modalContainer {
+  position: absolute;
+  background: #ffffff;
+  height: auto;
+  z-index: 99;
+  top: -5%;
+  left: 70%;
+  border: 1px black solid;
+  padding: 2rem 2rem;
+  border-radius: 5px;
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+
+  @include mobile {
+    width: 12rem;
+    left: 25%;
+    top: -5%;
+    font-size: 0.8rem;
+  }
+  span {
+    font-weight: bold;
+  }
+  &__imdb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    img {
+      width: 50px;
+      margin-right: 1rem;
+    }
+  }
+
+  &__plot {
+  }
+
+  &__mid {
+    display: flex;
+    flex-direction: row;
+
+    &-director {
+      margin-right: 1rem;
+    }
+  }
+
+  &__rotten {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    img {
+      width: 50px;
+      margin-right: 1rem;
+    }
+  }
+
+  &__top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    &-title {
+      font-weight: bold;
+    }
+    &-close {
+      font-weight: bold;
+      font-size: 1.4rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__poster {
+    width: 200px;
+    align-self: center;
+    @include mobile {
+      width: 100px;
+    }
+  }
+}

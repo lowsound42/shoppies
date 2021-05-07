@@ -15,6 +15,9 @@
   @include tablet {
     padding: 1rem 1rem;
   }
+  @include smallMobile {
+    width: 37%;
+  }
 
   &__title {
     text-align: center;

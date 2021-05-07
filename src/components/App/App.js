@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./App.scss";
 import SearchBox from "../SearchBox/SearchBox";
 import ResultsBox from "../ResultsBox/ResultsBox";
@@ -10,7 +10,8 @@ import { useDebounce } from "use-debounce";
 function App() {
   const [showResults, setShowResults] = useState(0);
   const [formInput, setFormInput] = useState(null);
-  const [debouncedInput] = useDebounce(formInput, 1200);
+  const [debouncedInput] = useDebounce(formInput, 500);
+  const outsideRef = useRef(null);
 
   const [searchResult, setSearchResult] = useState({
     query: null,
@@ -46,7 +47,7 @@ function App() {
   }, [debouncedInput, formInput]);
 
   return (
-    <div className="appContainer">
+    <div className="appContainer" ref={outsideRef}>
       {nominations.length === 5 ? <Banner nominations={nominations} /> : null}
       <div className="topContainer">
         <h1 className="topContainer__title">The Shoppies</h1>
@@ -59,6 +60,7 @@ function App() {
       <div className="bottomContainer">
         {showResults ? (
           <ResultsBox
+            ref={outsideRef}
             searchResult={searchResult}
             setSearchResult={setSearchResult}
             setNominations={setNominations}

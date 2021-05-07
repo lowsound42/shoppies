@@ -25,9 +25,23 @@ const pageCall = (formInput, page) => {
     });
 };
 
+const plotCall = (title) => {
+  return axios
+    .get(
+      `https://www.omdbapi.com/?i=${title}&type=movie&plot=$short&apikey=${apiKey}`
+    )
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
 var utilFunctions = {
   initialCall,
   pageCall,
+  plotCall,
 };
 
 export default utilFunctions;

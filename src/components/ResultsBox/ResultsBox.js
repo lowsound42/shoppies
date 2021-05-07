@@ -3,10 +3,12 @@ import "./ResultsBox.scss";
 import NoResults from "../NoResults/NoResults";
 import utilFunctions from "../../utilFunctions/api";
 import placeholder from "../../assets/placeholder.jpg";
-function ResultsBox(props) {
+import Modal from "../Modal/Modal";
+
+const ResultsBox = React.forwardRef((props, ref) => {
   const [pagination, setPagination] = useState(0);
-  const [selected, setSelected] = useState(0);
-  const [selectedId, setSelectedId] = useState(null);
+  const [modal, setModal] = useState(0);
+  const [plot, setPlot] = useState(0);
   const alreadyNominated = (item) => {
     let result = false;
     props.nominations.forEach((element) => {
@@ -21,6 +23,14 @@ function ResultsBox(props) {
   };
 
   useEffect(() => {
+    if (modal) {
+      ref.current.addEventListener("mousedown", toggleModal);
+    } else {
+      ref.current.removeEventListener("mousedown", toggleModal);
+    }
+  });
+
+  useEffect(() => {
     if (props.searchResult.pages > 10) {
       setPagination(1);
     }
@@ -30,12 +40,19 @@ function ResultsBox(props) {
     localStorage.setItem("nominations", JSON.stringify(props.nominations));
   }, [props.nominations]);
 
-  const handleSelected = (id) => {
-    setSelectedId(id);
-    setSelected(1);
-    if (selectedId === id && selected) {
-      setSelected(0);
+  const toggleModal = () => {
+    if (modal) {
+      setModal(0);
+    } else {
+      setModal(1);
     }
+  };
+
+  const handleSelected = (id) => {
+    toggleModal();
+    utilFunctions.plotCall(id).then(function (response) {
+      setPlot(response);
+    });
   };
   const pageChange = (e) => {
     var pageHolder = props.searchResult.pageCount;
@@ -66,6 +83,7 @@ function ResultsBox(props) {
           ? `Results for "${props.searchResult.query}"`
           : "Search for a movie!"}
       </h3>
+      {modal ? <Modal setModal={setModal} plot={plot} /> : null}
 
       <ul className="resultsBox__results">
         {props.searchResult.responseStatus === "True" ? (
@@ -95,13 +113,7 @@ function ResultsBox(props) {
                       }}
                     ></button>
                   </li>
-                  <div
-                    className={
-                      selected && item.imdbID === selectedId
-                        ? "resultsBox__results-items--more"
-                        : "resultsBox__results-items--hidden"
-                    }
-                  >
+                  <div className="resultsBox__results-items--more">
                     <button
                       className="resultsBox__results-items--more-button"
                       disabled={alreadyNominated(item) ? true : false}
@@ -171,6 +183,6 @@ function ResultsBox(props) {
       </div>
     </div>
   );
-}
+});
 
 export default ResultsBox;
