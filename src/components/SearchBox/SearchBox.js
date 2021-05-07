@@ -1,7 +1,7 @@
 import React from "react";
 import "./SearchBox.scss";
 
-function SearchBox(props) {
+const SearchBox = React.forwardRef((props, ref) => {
   return (
     <>
       <div className="searchBox">
@@ -13,6 +13,6 @@ function SearchBox(props) {
       </div>
     </>
   );
-}
+});
 
 export default SearchBox;

@@ -11,6 +11,8 @@ function App() {
   const [showResults, setShowResults] = useState(0);
   const [formInput, setFormInput] = useState(null);
   const [debouncedInput] = useDebounce(formInput, 500);
+  const [modal, setModal] = useState(0);
+  const [plot, setPlot] = useState(0);
   const outsideRef = useRef(null);
 
   const [searchResult, setSearchResult] = useState({
@@ -25,6 +27,29 @@ function App() {
   const [nominations, setNominations] = useState(
     cachedNominations ? cachedNominations : []
   );
+
+  const toggleModal = () => {
+    if (modal) {
+      setModal(0);
+    } else {
+      setModal(1);
+    }
+  };
+
+  const handleSelected = (id) => {
+    toggleModal();
+    utilFunctions.plotCall(id).then(function (response) {
+      setPlot(response);
+    });
+  };
+
+  useEffect(() => {
+    if (modal) {
+      outsideRef.current.addEventListener("mousedown", toggleModal);
+    } else {
+      outsideRef.current.removeEventListener("mousedown", toggleModal);
+    }
+  });
 
   useEffect(() => {
     const handleSubmit = (e) => {
@@ -47,9 +72,9 @@ function App() {
   }, [debouncedInput, formInput]);
 
   return (
-    <div className="appContainer" ref={outsideRef}>
+    <div className="appContainer">
       {nominations.length === 5 ? <Banner nominations={nominations} /> : null}
-      <div className="topContainer">
+      <div className="topContainer" ref={outsideRef}>
         <h1 className="topContainer__title">The Shoppies</h1>
         <SearchBox
           setFormInput={setFormInput}
@@ -60,7 +85,10 @@ function App() {
       <div className="bottomContainer">
         {showResults ? (
           <ResultsBox
-            ref={outsideRef}
+            modal={modal}
+            setModal={setModal}
+            plot={plot}
+            handleSelected={handleSelected}
             searchResult={searchResult}
             setSearchResult={setSearchResult}
             setNominations={setNominations}

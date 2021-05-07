@@ -4,11 +4,8 @@ import NoResults from "../NoResults/NoResults";
 import utilFunctions from "../../utilFunctions/api";
 import placeholder from "../../assets/placeholder.jpg";
 import Modal from "../Modal/Modal";
-
-const ResultsBox = React.forwardRef((props, ref) => {
+function ResultsBox(props) {
   const [pagination, setPagination] = useState(0);
-  const [modal, setModal] = useState(0);
-  const [plot, setPlot] = useState(0);
   const alreadyNominated = (item) => {
     let result = false;
     props.nominations.forEach((element) => {
@@ -16,19 +13,12 @@ const ResultsBox = React.forwardRef((props, ref) => {
     });
     return result;
   };
-  const nominate = (item, index) => {
+  const nominate = (item) => {
+    console.log(item);
     if (props.nominations.length < 5 && !alreadyNominated(item)) {
       props.setNominations((prevState) => [...prevState, item]);
     }
   };
-
-  useEffect(() => {
-    if (modal) {
-      ref.current.addEventListener("mousedown", toggleModal);
-    } else {
-      ref.current.removeEventListener("mousedown", toggleModal);
-    }
-  });
 
   useEffect(() => {
     if (props.searchResult.pages > 10) {
@@ -40,20 +30,6 @@ const ResultsBox = React.forwardRef((props, ref) => {
     localStorage.setItem("nominations", JSON.stringify(props.nominations));
   }, [props.nominations]);
 
-  const toggleModal = () => {
-    if (modal) {
-      setModal(0);
-    } else {
-      setModal(1);
-    }
-  };
-
-  const handleSelected = (id) => {
-    toggleModal();
-    utilFunctions.plotCall(id).then(function (response) {
-      setPlot(response);
-    });
-  };
   const pageChange = (e) => {
     var pageHolder = props.searchResult.pageCount;
 
@@ -83,8 +59,14 @@ const ResultsBox = React.forwardRef((props, ref) => {
           ? `Results for "${props.searchResult.query}"`
           : "Search for a movie!"}
       </h3>
-      {modal ? <Modal setModal={setModal} plot={plot} /> : null}
-
+      {props.modal ? (
+        <Modal
+          setModal={props.setModal}
+          plot={props.plot}
+          nominate={nominate}
+          alreadyNominated={alreadyNominated}
+        />
+      ) : null}
       <ul className="resultsBox__results">
         {props.searchResult.responseStatus === "True" ? (
           props.searchResult.result.map((item, index) => {
@@ -94,7 +76,7 @@ const ResultsBox = React.forwardRef((props, ref) => {
                   <li className="resultsBox__results-items--content">
                     <div
                       className="resultsBox__results-items--content-box"
-                      onClick={() => handleSelected(item.imdbID)}
+                      onClick={() => props.handleSelected(item.imdbID)}
                     >
                       <img
                         className="resultsBox__results-items--content-image"
@@ -183,6 +165,6 @@ const ResultsBox = React.forwardRef((props, ref) => {
       </div>
     </div>
   );
-});
+}
 
 export default ResultsBox;

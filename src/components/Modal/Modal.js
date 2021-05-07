@@ -21,6 +21,7 @@ function Modal(props) {
         src={props.plot.Poster !== "N/A" ? props.plot.Poster : placeholder}
         alt="movie poster"
       />
+
       <div className="modalContainer__mid">
         <p className="modalContainer__mid-director">
           <span>Director:</span> {props.plot.Director}
