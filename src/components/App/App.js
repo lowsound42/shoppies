@@ -14,9 +14,10 @@ function App() {
     pages: null,
     currentPage: 1,
   });
+  const cachedNominations = JSON.parse(localStorage.getItem("nominations"));
 
   const [nominations, setNominations] = useState(
-    JSON.parse(localStorage.getItem("nominations"))
+    cachedNominations ? cachedNominations : []
   );
 
   return (
@@ -38,13 +39,13 @@ function App() {
             nominations={nominations}
           />
         ) : null}
-        {nominations[0] ? (
-          <NominationsBox
-            nominations={nominations}
-            setNominations={setNominations}
-          />
-        ) : null}
       </div>
+      {nominations[0] ? (
+        <NominationsBox
+          nominations={nominations}
+          setNominations={setNominations}
+        />
+      ) : null}
     </div>
   );
 }

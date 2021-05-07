@@ -1,11 +1,5 @@
 @import "../../sassUtils/mixins.scss";
 
-.lateAdditionBox {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
 .resultsBox {
   background-color: #ffffff;
   border: 1px solid black;
@@ -16,7 +10,7 @@
   flex-direction: column;
   border-radius: 20px;
   margin-bottom: 2rem;
-  height: 40rem;
+  height: 50rem;
   @include mobile {
     width: 70%;
   }
@@ -24,43 +18,12 @@
     width: 70%;
   }
 
-  &__moveArrow {
-    &-left,
-    &-right {
-      position: relative;
-      height: 4rem;
-      width: 4rem;
-      background-color: black;
-      z-index: 99;
-      border-radius: 50%;
-      align-self: center;
-
-      @include mobile {
-        height: 2rem;
-        width: 2rem;
-      }
-      @include tablet {
-        height: 3rem;
-        width: 3rem;
-      }
-    }
-
-    &--inside {
-      width: 2rem;
-      height: 2rem;
-      background-color: white;
-      position: absolute;
-      top: 24%;
-      left: 25%;
-    }
-  }
-
   &__results {
     padding-left: 0;
     display: flex;
     flex-direction: row;
     overflow-x: auto;
-    height: 30rem;
+    height: 20rem;
 
     &::-webkit-scrollbar {
       display: none;
@@ -74,19 +37,22 @@
       justify-content: center;
       margin-right: 15px;
 
-      &--title {
-        text-align: center;
+      &--image {
+        width: 100px;
+        height: 150px;
+        margin-right: 2rem;
+
+        img {
+          width: 100%;
+        }
       }
 
-      img {
-        width: 200px;
-        margin-top: 1rem;
+      p {
+        word-wrap: break-word;
       }
-      button {
-        width: 6rem;
-        height: 2rem;
-        align-self: center;
-        border-radius: 20px;
+
+      &--title {
+        text-align: center;
       }
     }
   }
@@ -98,33 +64,33 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
+    height: 4rem;
+
+    @include mobile {
+      justify-content: space-between;
+    }
+
+    &-button {
+      width: 8rem;
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 20px;
+      border: none;
+
+      &:disabled {
+        background-color: grey;
+      }
+
+      @include mobile {
+        width: 4rem;
+        font-size: 0.8rem;
+      }
+    }
   }
-}
-
-.arrow {
-  position: absolute;
-  top: 37%;
-  left: 40%;
-  border: solid white;
-  border-width: 0 6px 6px 0;
-  display: inline-block;
-  padding: 3px;
-
-  @include mobile {
-    border-width: 0 3px 3px 0;
-  }
-}
-
-.right {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-
-.left {
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
 }
 
 .hidden {

@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import "./ResultsBox.scss";
 import NoResults from "../NoResults/NoResults";
 import utilFunctions from "../../utilFunctions/api";
+import placeholder from "../../assets/placeholder.jpg";
 
 function ResultsBox(props) {
   const [pagination, setPagination] = useState(0);
-  const [leftClick, setLeftClick] = useState(0);
-  const [rightClick, setRightClick] = useState(0);
 
   const element = useRef(null);
   const alreadyNominated = (item) => {
@@ -20,19 +19,6 @@ function ResultsBox(props) {
     if (props.nominations.length < 5 && !alreadyNominated(item)) {
       props.setNominations((prevState) => [...prevState, item]);
     }
-  };
-
-  const moveLeft = () => {
-    setLeftClick(parseInt(element.current.scrollWidth / 300));
-    console.log(window.pageYoffset);
-    element.current.scrollLeft -= 300;
-    console.log(leftClick);
-  };
-
-  const moveRight = () => {
-    setRightClick(parseInt(element.current.scrollWidth / 300));
-    element.current.scrollLeft += 300;
-    console.log(rightClick);
   };
 
   useEffect(() => {
@@ -68,98 +54,94 @@ function ResultsBox(props) {
   }, [props.nominations]);
 
   return (
-    <div className="lateAdditionBox">
-      <div onClick={() => moveLeft()} className="resultsBox__moveArrow-left">
-        <i className="arrow left"></i>
-      </div>
-      <div className="resultsBox">
-        <h3 className="resultsBox__title">
-          {props.searchResult.query !== null
-            ? `Results for "${props.searchResult.query}"`
-            : "Search for a movie!"}
-        </h3>
+    <div className="resultsBox">
+      <h3 className="resultsBox__title">
+        {props.searchResult.query !== null
+          ? `Results for "${props.searchResult.query}"`
+          : "Search for a movie!"}
+      </h3>
 
-        <ul className="resultsBox__results" ref={element}>
-          {props.searchResult.responseStatus === "True" ? (
-            props.searchResult.result.map((item, index) => {
-              if (item.Type === "movie") {
-                return (
-                  <div className="resultsBox__results-items" key={item.imdbID}>
-                    <li className="resultsBox__results-items--title">
-                      {item.Title} ({item.Year.slice(0, 4)})
-                      <img
-                        className="resultsBox__results-items--image"
-                        src={item.Poster}
-                        alt="poster for a movie"
-                      />
-                    </li>
-                    <button
-                      disabled={alreadyNominated(item) ? true : false}
-                      onClick={() => {
-                        nominate(item);
-                      }}
-                    >
-                      Nominate
-                    </button>
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            })
-          ) : (
-            <NoResults
-              responseStatus={props.responseStatus}
-              searchResult={props.searchResult}
-            ></NoResults>
-          )}
-        </ul>
+      <ul className="resultsBox__results" ref={element}>
         {props.searchResult.responseStatus === "True" ? (
-          <p className="resultsBox__pageCount">
-            {props.searchResult.pages} results! <br></br> page &nbsp;
-            {props.searchResult.currentPage} of &nbsp;
-            {pagination ? parseInt(props.searchResult.pages / 10) + 1 : 1}
-          </p>
-        ) : null}
-        <div className="resultsBox__scrollButtons">
-          <button
-            className={
-              props.searchResult.query !== null
-                ? "resultsBox__scrollButtons-button visible"
-                : "hidden"
+          props.searchResult.result.map((item, index) => {
+            console.log(item);
+
+            if (item.Type === "movie") {
+              return (
+                <div className="resultsBox__results-items" key={item.imdbID}>
+                  <li className="resultsBox__results-items--title">
+                    <p>
+                      {item.Title} ({item.Year.slice(0, 4)})
+                    </p>
+                    <img
+                      className="resultsBox__results-items--image"
+                      src={item.Poster !== "N/A" ? item.Poster : placeholder}
+                      alt="poster for a movie"
+                    />
+                  </li>
+                  <button
+                    disabled={alreadyNominated(item) ? true : false}
+                    onClick={() => {
+                      nominate(item);
+                    }}
+                  >
+                    Nominate
+                  </button>
+                </div>
+              );
+            } else {
+              return null;
             }
-            disabled={
-              pagination === 1 && props.searchResult.currentPage === 1
-                ? true
-                : false
-            }
-            value="b"
-            onClick={(e) => pageChange(e)}
-          >
-            Load previous
-          </button>
-          <button
-            className={
-              props.searchResult.query !== null
-                ? "resultsBox__scrollButtons-button visible"
-                : "hidden"
-            }
-            disabled={
-              pagination === 1 &&
-              props.searchResult.currentPage ===
-                parseInt(props.searchResult.pages / 10) + 1
-                ? true
-                : false
-            }
-            value="f"
-            onClick={(e) => pageChange(e)}
-          >
-            Load next
-          </button>
-        </div>
-      </div>
-      <div onClick={() => moveRight()} className="resultsBox__moveArrow-right">
-        <i className="arrow right"></i>
+          })
+        ) : (
+          <NoResults
+            responseStatus={props.responseStatus}
+            searchResult={props.searchResult}
+          ></NoResults>
+        )}
+      </ul>
+      {props.searchResult.responseStatus === "True" ? (
+        <p className="resultsBox__pageCount">
+          {props.searchResult.pages} results! <br></br> page &nbsp;
+          {props.searchResult.currentPage} of &nbsp;
+          {pagination ? parseInt(props.searchResult.pages / 10) + 1 : 1}
+        </p>
+      ) : null}
+      <div className="resultsBox__scrollButtons">
+        <button
+          className={
+            props.searchResult.query !== null
+              ? "resultsBox__scrollButtons-button visible"
+              : "hidden"
+          }
+          disabled={
+            pagination === 1 && props.searchResult.currentPage === 1
+              ? true
+              : false
+          }
+          value="b"
+          onClick={(e) => pageChange(e)}
+        >
+          Previous ten
+        </button>
+        <button
+          className={
+            props.searchResult.query !== null
+              ? "resultsBox__scrollButtons-button  visible"
+              : "hidden"
+          }
+          disabled={
+            pagination === 1 &&
+            props.searchResult.currentPage ===
+              parseInt(props.searchResult.pages / 10) + 1
+              ? true
+              : false
+          }
+          value="f"
+          onClick={(e) => pageChange(e)}
+        >
+          Next ten
+        </button>
       </div>
     </div>
   );
