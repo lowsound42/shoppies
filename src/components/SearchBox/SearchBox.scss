@@ -2,9 +2,20 @@
 
 .searchBox {
   border: 1px solid black;
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
   padding: 2rem 2rem;
   background-color: #ffffff;
-  border-radius: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+input {
+  width: 70%;
+  height: 2rem;
+  padding-left: 2.5rem;
+  background-image: url("../../assets/search-solid.svg");
+  background-repeat: no-repeat;
+  background-position: 0.5rem;
+  background-size: 20px 20px;
 }

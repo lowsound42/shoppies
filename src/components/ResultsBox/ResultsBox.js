@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./ResultsBox.scss";
 import NoResults from "../NoResults/NoResults";
 import utilFunctions from "../../utilFunctions/api";
@@ -6,8 +6,8 @@ import placeholder from "../../assets/placeholder.jpg";
 
 function ResultsBox(props) {
   const [pagination, setPagination] = useState(0);
-
-  const element = useRef(null);
+  const [selected, setSelected] = useState(0);
+  const [selectedId, setSelectedId] = useState(null);
   const alreadyNominated = (item) => {
     let result = false;
     props.nominations.forEach((element) => {
@@ -27,6 +27,17 @@ function ResultsBox(props) {
     }
   }, [props.searchResult.pages]);
 
+  useEffect(() => {
+    localStorage.setItem("nominations", JSON.stringify(props.nominations));
+  }, [props.nominations]);
+
+  const handleSelected = (id) => {
+    setSelectedId(id);
+    setSelected(1);
+    if (selectedId === id && selected) {
+      setSelected(0);
+    }
+  };
   const pageChange = (e) => {
     var pageHolder = props.searchResult.pageCount;
 
@@ -49,44 +60,57 @@ function ResultsBox(props) {
       });
   };
 
-  useEffect(() => {
-    localStorage.setItem("nominations", JSON.stringify(props.nominations));
-  }, [props.nominations]);
-
   return (
     <div className="resultsBox">
       <h3 className="resultsBox__title">
-        {props.searchResult.query !== null
+        {props.searchResult.query
           ? `Results for "${props.searchResult.query}"`
           : "Search for a movie!"}
       </h3>
 
-      <ul className="resultsBox__results" ref={element}>
+      <ul className="resultsBox__results">
         {props.searchResult.responseStatus === "True" ? (
           props.searchResult.result.map((item, index) => {
-            console.log(item);
-
             if (item.Type === "movie") {
               return (
                 <div className="resultsBox__results-items" key={item.imdbID}>
-                  <li className="resultsBox__results-items--title">
-                    <p>
-                      {item.Title} ({item.Year.slice(0, 4)})
-                    </p>
-                    <img
-                      className="resultsBox__results-items--image"
-                      src={item.Poster !== "N/A" ? item.Poster : placeholder}
-                      alt="poster for a movie"
-                    />
+                  <li className="resultsBox__results-items--content">
+                    <div
+                      className="resultsBox__results-items--content-box"
+                      onClick={() => handleSelected(item.imdbID)}
+                    >
+                      <img
+                        className="resultsBox__results-items--content-image"
+                        src={item.Poster !== "N/A" ? item.Poster : placeholder}
+                        alt="poster for a movie"
+                      />
+                      <p>
+                        {item.Title} ({item.Year.slice(0, 4)})
+                      </p>
+                    </div>
+                    <button
+                      className="resultsBox__results-items--button"
+                      disabled={alreadyNominated(item) ? true : false}
+                      onClick={() => {
+                        nominate(item);
+                      }}
+                    ></button>
                   </li>
-                  <button
-                    disabled={alreadyNominated(item) ? true : false}
-                    onClick={() => {
-                      nominate(item);
-                    }}
+                  <div
+                    className={
+                      selected && item.imdbID === selectedId
+                        ? "resultsBox__results-items--more"
+                        : "resultsBox__results-items--hidden"
+                    }
                   >
-                    Nominate
-                  </button>
+                    <button
+                      className="resultsBox__results-items--more-button"
+                      disabled={alreadyNominated(item) ? true : false}
+                      onClick={() => {
+                        nominate(item);
+                      }}
+                    ></button>
+                  </div>
                 </div>
               );
             } else {
@@ -102,7 +126,9 @@ function ResultsBox(props) {
       </ul>
       {props.searchResult.responseStatus === "True" ? (
         <p className="resultsBox__pageCount">
-          {props.searchResult.pages} results! <br></br> page &nbsp;
+          {props.searchResult.pages}{" "}
+          {props.searchResult.pages > 1 ? "results!" : "result!"} <br></br> page
+          &nbsp;
           {props.searchResult.currentPage} of &nbsp;
           {pagination ? parseInt(props.searchResult.pages / 10) + 1 : 1}
         </p>
@@ -110,7 +136,7 @@ function ResultsBox(props) {
       <div className="resultsBox__scrollButtons">
         <button
           className={
-            props.searchResult.query !== null
+            props.searchResult.query !== null && props.searchResult.result
               ? "resultsBox__scrollButtons-button visible"
               : "hidden"
           }
@@ -122,11 +148,11 @@ function ResultsBox(props) {
           value="b"
           onClick={(e) => pageChange(e)}
         >
-          Previous ten
+          Previous
         </button>
         <button
           className={
-            props.searchResult.query !== null
+            props.searchResult.query !== null && props.searchResult.result
               ? "resultsBox__scrollButtons-button  visible"
               : "hidden"
           }
@@ -140,7 +166,7 @@ function ResultsBox(props) {
           value="f"
           onClick={(e) => pageChange(e)}
         >
-          Next ten
+          Next
         </button>
       </div>
     </div>

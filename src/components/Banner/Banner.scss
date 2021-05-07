@@ -2,6 +2,10 @@
 
 .bannerContainer {
   width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 4rem;
   text-align: center;
-  background-color: red;
+  background-color: cyan;
+  z-index: 99;
 }

@@ -16,7 +16,10 @@ function NominationsBox(props) {
             return (
               <div className="nominationsBox__list-item" key={index}>
                 <li>{item.Title}</li>
-                <button onClick={() => removeNomination(item)}>Remove</button>
+                <button
+                  className="nominationsBox__list-item--button"
+                  onClick={() => removeNomination(item)}
+                ></button>
               </div>
             );
           })

@@ -3,9 +3,16 @@
 
 body {
   height: 100vh;
-  background-color: darkcyan;
+  background-color: #ffffff;
   box-sizing: border-box;
-  margin: 2rem 2rem;
+  // padding: 2rem 2rem;
+
+  @include mobile {
+    margin: 0rem 0rem;
+  }
+  @include tablet {
+    margin: 0rem 0rem;
+  }
 }
 
 .appContainer {
@@ -21,14 +28,22 @@ body {
 .titleContainer {
   align-self: flex-start;
   &__title {
+    margin-left: 1rem;
     text-align: start;
   }
 }
 
-.dynamicContainer {
+.topContainer {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.bottomContainer {
   margin-top: 2rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
   justify-content: space-around;
 }

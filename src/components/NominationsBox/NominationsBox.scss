@@ -2,30 +2,76 @@
 
 .nominationsBox {
   border: 1px solid black;
-  width: 20%;
+  width: 40%;
   padding: 2rem 2rem;
   background-color: #ffffff;
   margin: 0 auto;
-  border-radius: 20px;
-  height: 20rem;
+  border-radius: 5px;
+  height: auto;
+  @include mobile {
+    padding: 1rem 1rem;
+  }
+
+  @include tablet {
+    padding: 1rem 1rem;
+  }
 
   &__list {
     padding-left: 0;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     &-item {
+      animation: fade-in 0.5s ease-in-out;
       list-style: none;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       margin-bottom: 2rem;
-      button {
-        width: 6rem;
+      align-items: center;
+      @include mobile {
+        font-size: 0.7rem;
+      }
+
+      @include tablet {
+        font-size: 0.7rem;
+      }
+      &--button {
+        border: none;
+        background-color: #ffffff;
+        width: 4rem;
         height: 2rem;
+        background-image: url("../../assets/trash-alt-solid.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+
+        @include mobile {
+          background-size: 20px 20px;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 25%;
+  }
+  50% {
+    opacity: 50%;
+  }
+  75% {
+    opacity: 75%;
+  }
+  100% {
+    opacity: 100%;
   }
 }
