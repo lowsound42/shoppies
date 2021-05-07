@@ -7,9 +7,9 @@ function SearchBox(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    props.setShowResults(1);
     if (formInput !== null) {
       utilFunctions.initialCall(formInput).then(function (response) {
-        console.log(response);
         props.setSearchResult({
           query: formInput,
           responseStatus: response.Response,

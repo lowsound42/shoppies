@@ -13,7 +13,6 @@ const initialCall = (formInput) => {
 };
 
 const pageCall = (formInput, page) => {
-  console.log(formInput, page);
   return axios
     .get(
       `http://www.omdbapi.com/?s=${formInput}&type=movie&page=${page}&apikey=${apiKey}`

@@ -1,19 +1,30 @@
+@import "../../sassUtils/mixins.scss";
+
 .nominationsBox {
-    border: 1px solid black;
-    width: 40%;
-    padding: 2rem 2rem;
-    background-color: #ffffff;
+  border: 1px solid black;
+  width: 40%;
+  padding: 2rem 2rem;
+  background-color: #ffffff;
+  margin: 0 auto;
+  border-radius: 20px;
 
-    &__list {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+  &__list {
+    padding-left: 0;
 
-        &-item {
-            margin-bottom: 1rem;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &-item {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      button {
+        width: 6rem;
+        height: 2rem;
+      }
     }
+  }
 }

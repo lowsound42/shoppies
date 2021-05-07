@@ -6,6 +6,7 @@ import NominationsBox from "../NominationsBox/NominationsBox";
 import Banner from "../Banner/Banner";
 
 function App() {
+  const [showResults, setShowResults] = useState(0);
   const [searchResult, setSearchResult] = useState({
     query: null,
     responseStatus: null,
@@ -24,18 +25,25 @@ function App() {
       <section className="titleContainer">
         <h1 className="titleContainer__title">The Shoppies</h1>
       </section>
-      <SearchBox setSearchResult={setSearchResult}></SearchBox>
+      <SearchBox
+        setShowResults={setShowResults}
+        setSearchResult={setSearchResult}
+      ></SearchBox>
       <div className="dynamicContainer">
-        <ResultsBox
-          searchResult={searchResult}
-          setSearchResult={setSearchResult}
-          setNominations={setNominations}
-          nominations={nominations}
-        />
-        <NominationsBox
-          nominations={nominations}
-          setNominations={setNominations}
-        />
+        {showResults ? (
+          <ResultsBox
+            searchResult={searchResult}
+            setSearchResult={setSearchResult}
+            setNominations={setNominations}
+            nominations={nominations}
+          />
+        ) : null}
+        {nominations[0] ? (
+          <NominationsBox
+            nominations={nominations}
+            setNominations={setNominations}
+          />
+        ) : null}
       </div>
     </div>
   );
