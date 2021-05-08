@@ -88,22 +88,22 @@ function ResultsBox(props) {
                       </p>
                     </div>
                     <button
-                      className="resultsBox__results-items--button"
+                      className="resultsBox__results-items--content-button"
                       disabled={alreadyNominated(item) ? true : false}
                       onClick={() => {
                         nominate(item);
                       }}
                     ></button>
+                    <div className="resultsBox__results-items--content-more">
+                      <button
+                        className="resultsBox__results-items--content-more_button"
+                        disabled={alreadyNominated(item) ? true : false}
+                        onClick={() => {
+                          nominate(item);
+                        }}
+                      ></button>
+                    </div>
                   </li>
-                  <div className="resultsBox__results-items--more">
-                    <button
-                      className="resultsBox__results-items--more-button"
-                      disabled={alreadyNominated(item) ? true : false}
-                      onClick={() => {
-                        nominate(item);
-                      }}
-                    ></button>
-                  </div>
                 </div>
               );
             } else {
