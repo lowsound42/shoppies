@@ -72,9 +72,9 @@ function App() {
   }, [debouncedInput, formInput]);
 
   return (
-    <div className="appContainer">
+    <div className="appContainer" ref={outsideRef}>
       {nominations.length === 5 ? <Banner nominations={nominations} /> : null}
-      <div className="topContainer" ref={outsideRef}>
+      <div className="topContainer">
         <h1 className="topContainer__title">The Shoppies</h1>
         <SearchBox
           setFormInput={setFormInput}
