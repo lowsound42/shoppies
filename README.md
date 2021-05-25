@@ -4,7 +4,8 @@ This project was completed in support of my application to the Shopify front-end
 
 Link to the live demo: [The Shoppy awards](https://shoppies-omar.netlify.app/)
 
-For a local copy, clone this repo, jump into the folder and run 'npm install' to get all dependencies installed. 'npm start' to run.
+## Deployment
+For a local copy, clone this repo, jump into the folder and run `npm install` to get all dependencies installed. `npm start` to run.
 
 ## The Thing
 I used React because I'm relatively comfortable with it and wanted to spin something up quickly. My goal for this project was to try and implement as much as I could from scratch but I did end up using three packages.
